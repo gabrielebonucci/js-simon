@@ -1,7 +1,7 @@
 // costanti
 
 const numbersCount = 5;
-const secondsToMemorize = 5;
+const secondsToMemorize = 15;
 
 let randomNumbers = [];
 
