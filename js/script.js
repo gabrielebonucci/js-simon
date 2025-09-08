@@ -32,3 +32,18 @@ for (let number of randomNumbers) {
     numbersListElement.appendChild(li);
 }
 countdownElement.textContent = `Hai ${SECONDS_TO_MEMORIZE} secondi per memorizzare!`;
+
+// FASE 2: TIMER
+
+setTimeout(() => {
+    //nascondo i numeri
+    numbersListElement.style.display = 'none';
+    //mostro il form
+    formElement.classList.remove('d-none');
+    countdownElement.textContent = 'Inserisci i numeri che ricordi';
+
+},  SECONDS_TO_MEMORIZE * 1000); // Converti i secondi in millisecondi
+
+ // verifica e risultato
+formElement.addEventListener('submit', handleSubmit);
+
