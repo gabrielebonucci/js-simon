@@ -1,7 +1,7 @@
 // costanti
 
 const numbersCount = 5;
-const secondsToMemorize =5;
+const secondsToMemorize = 5;
 
 let randomNumbers = [];
 
@@ -9,6 +9,7 @@ const numbersListElement = document.getElementById('numbers-list');
 const countdownElement = document.getElementById('countdown');
 const formElement = document.getElementById('answers-form');
 const messageElement = document.getElementById('message');
+const instructionElement = document.getElementById('instructions');
 
 // --- Funzione per Numeri Casuali ---
 function getRandomNumber(min, max) {
@@ -38,6 +39,10 @@ countdownElement.textContent = `Hai ${secondsToMemorize} secondi per memorizzare
 setTimeout(() => {
     //nascondo i numeri
     numbersListElement.classList.add('d-none');
+
+    // Nascondo il testo delle istruzioni
+    instructionElement.classList.add('d-none');
+
     //mostro il form
     formElement.classList.remove('d-none');
     countdownElement.textContent = 'Inserisci i numeri che ricordi';
@@ -71,12 +76,14 @@ function handleSubmit(event) {
 
   if (score === 0) {
         messageElement.textContent = 'Nessun numero indovinato.';
+  } else if (score === 1) {
+        messageElement.textContent = `Hai indovinato ${score} numero: ${correctGuesses.join(', ')}.`;
+
   } else {
-        messageElement.textContent = `Hai indovinato ${score} numeri: ${correctGuesses.join(', ')}.`;
+    messageElement.textContent = `Hai indovinato ${score} numeri: ${correctGuesses.join(', ')}.`;
 
   }
   // Nascondi il pulsante dopo l'invio
-  formElement.querySelector('button').style.display = 'none';
-  console.log("Ciao! Lo script è stato caricato correttamente.");
+formElement.querySelector('button').classList.add('d-none');
 
 }
