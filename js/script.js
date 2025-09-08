@@ -1,7 +1,7 @@
 // costanti
 
 const numbersCount = 5;
-const secondsToMemorize = 30;
+const secondsToMemorize =5;
 
 let randomNumbers = [];
 
@@ -16,7 +16,7 @@ function getRandomNumber(min, max) {
 }
 
 while (randomNumbers.length < numbersCount) {
-    const newNumber = getRandomNumber(1,100);
+    const newNumber = getRandomNumber(1,50);
     if (!randomNumbers.includes(newNumber)) {
         randomNumbers.push(newNumber);
     }
@@ -31,19 +31,52 @@ for (let number of randomNumbers) {
     li.textContent = number;
     numbersListElement.appendChild(li);
 }
-countdownElement.textContent = `Hai ${SECONDS_TO_MEMORIZE} secondi per memorizzare!`;
+countdownElement.textContent = `Hai ${secondsToMemorize} secondi per memorizzare!`;
 
 // FASE 2: TIMER
 
 setTimeout(() => {
     //nascondo i numeri
-    numbersListElement.style.display = 'none';
+    numbersListElement.classList.add('d-none');
     //mostro il form
     formElement.classList.remove('d-none');
     countdownElement.textContent = 'Inserisci i numeri che ricordi';
 
-},  SECONDS_TO_MEMORIZE * 1000); // Converti i secondi in millisecondi
+},  secondsToMemorize * 1000); // Converti i secondi in millisecondi
 
  // verifica e risultato
 formElement.addEventListener('submit', handleSubmit);
 
+function handleSubmit(event) {
+  event.preventDefault(); // Evita che la pagina si ricarichi
+
+  // Leggo gli input dell'utente
+  const inputElements = formElement.querySelectorAll('input[type="number"]');
+  const userNumbers = [];
+  for (let input of inputElements) {
+    userNumbers.push(parseInt(input.value));
+  }
+
+  const correctGuesses = [];
+  for (let userNum of userNumbers) {
+    if (randomNumbers.includes(userNum) && !correctGuesses.includes(userNum)) {
+      correctGuesses.push(userNum);
+    }
+
+  }
+
+  //mostra risultato finale
+
+  const score = correctGuesses.length;
+
+  if (score === 0) {
+        messageElement.textContent = 'Nessun numero indovinato.';
+  } else {
+        messageElement.textContent = `Hai indovinato ${score} numeri: ${correctGuesses.join(', ')}.`;
+
+  }
+  // Nascondi il pulsante dopo l'invio
+  formElement.querySelector('button').style.display = 'none';
+  console.log("Ciao! Lo script è stato caricato correttamente.");
+
+}
